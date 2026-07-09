@@ -40,15 +40,13 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-12"
+        className="mb-12 section-title-alert"
       >
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent mb-3">
-          Contact
-        </p>
         <h2 className="font-display font-bold text-4xl sm:text-5xl text-zinc-100 uppercase">
-          Travaillons ensemble
+          Travaillons Ensemble
         </h2>
-        <p className="text-zinc-500 mt-3 max-w-md leading-relaxed">
+        <div className="line-alert" />
+        <p className="text-zinc-500 mt-4 max-w-md mx-auto leading-relaxed">
           Disponible pour un poste SOC Junior, un stage ou tout échange autour de la
           cybersécurité.
         </p>

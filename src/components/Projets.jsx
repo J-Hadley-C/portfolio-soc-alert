@@ -227,15 +227,13 @@ export default function Projets() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-12"
+        className="mb-12 section-title-alert"
       >
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent mb-3">
-          Projets
-        </p>
         <h2 className="font-display font-bold text-4xl sm:text-5xl text-zinc-100 uppercase">
-          Lab SOC en action
+          Mes Projets
         </h2>
-        <p className="text-zinc-500 mt-3 max-w-xl leading-relaxed">
+        <div className="line-alert" />
+        <p className="text-zinc-500 mt-4 max-w-xl mx-auto leading-relaxed">
           Cinq attaques réelles reproduites dans le lab, avec la chaîne de détection Wazuh
           prouvée bout en bout. Cliquer sur une carte pour les détails.
         </p>

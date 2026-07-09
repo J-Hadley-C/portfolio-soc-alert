@@ -46,14 +46,12 @@ export default function Competences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-12 text-center"
+        className="mb-12 section-title-alert"
       >
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent mb-3">
-          Compétences
-        </p>
         <h2 className="font-display font-bold text-4xl sm:text-5xl text-zinc-100 uppercase">
-          Mes domaines
+          Mes Compétences
         </h2>
+        <div className="line-alert" />
       </motion.div>
 
       <motion.div
@@ -67,12 +65,13 @@ export default function Competences() {
           <motion.div
             key={c.titre}
             variants={item}
-            className="bg-surface border border-divider p-8 text-center
-              hover:border-accent/50 transition-colors duration-200"
+            className="group bg-surface rounded-2xl p-8 pt-10 text-center
+              shadow-[0_13px_8px_-10px_rgba(0,0,0,0.3)]"
           >
-            <span className="inline-flex items-center justify-center w-16 h-16 rounded-full
-              bg-accent-dim border border-accent/40 mb-4">
-              <i className={`bi ${c.icon} text-2xl text-accent`} />
+            <span className="inline-flex items-center justify-center w-[100px] h-[100px] rounded-full mb-4
+              shadow-[0_0_0_10px_rgba(255,43,43,0.15)] bg-elevated
+              transition-colors duration-300 group-hover:bg-accent">
+              <i className={`bi ${c.icon} text-4xl text-accent group-hover:text-bg transition-colors duration-300`} />
             </span>
             <h3 className="font-display font-bold text-lg text-zinc-100 uppercase mb-3">
               {c.titre}

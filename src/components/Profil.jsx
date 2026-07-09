@@ -25,13 +25,11 @@ const item = {
 export default function Profil() {
   return (
     <section id="profil" className="py-24 px-6 max-w-6xl mx-auto">
-      <motion.div {...fadeUp()} className="mb-12">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent mb-3">
-          Profil
-        </p>
+      <motion.div {...fadeUp()} className="mb-12 section-title-alert">
         <h2 className="font-display font-bold text-4xl sm:text-5xl text-zinc-100 uppercase">
-          Qui suis-je
+          Mon Profil
         </h2>
+        <div className="line-alert" />
       </motion.div>
 
       <div className="grid lg:grid-cols-5 gap-12 items-start mb-20">
@@ -71,16 +69,15 @@ export default function Profil() {
               href="/CV-CHERY-Jean-Hadley-SOC-Analyst.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm bg-accent text-bg font-semibold px-5 py-2.5
-                hover:bg-accent/90 transition-colors duration-200"
+              className="btn-alert text-sm"
             >
-              Télécharger mon CV
+              Télécharger mon CV <i className="bi bi-file-earmark-arrow-down-fill ml-1" />
             </a>
             <a
               href="https://www.linkedin.com/in/hadley-chery/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm border border-divider text-zinc-400 px-5 py-2.5
+              className="text-sm border border-divider text-zinc-400 px-5 py-2.5 rounded-[10px]
                 hover:border-accent hover:text-accent transition-colors duration-200"
             >
               LinkedIn →
@@ -95,35 +92,24 @@ export default function Profil() {
         </h3>
       </motion.div>
 
-      <div className="relative max-w-3xl mx-auto">
+      <ul className="timeline-alert max-w-2xl mx-auto">
         {ETAPES.map((etape, i) => (
-          <motion.div
+          <motion.li
             key={etape.titre}
             variants={item}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: i * 0.1 }}
-            className="relative bg-surface border border-divider p-6 mb-12 last:mb-0"
-            style={{ borderTopColor: COULEURS[i], borderTopWidth: '3px' }}
+            transition={{ duration: 0.4, delay: i * 0.1 }}
+            style={{ '--dot-color': COULEURS[i] }}
           >
-            {i > 0 && (
-              <div
-                className="absolute left-1/2 -translate-x-1/2 -top-8 w-0 h-0"
-                style={{
-                  borderLeft: '14px solid transparent',
-                  borderRight: '14px solid transparent',
-                  borderBottom: `14px solid ${COULEURS[i]}`,
-                }}
-              />
-            )}
             <h4 className="font-display font-semibold text-lg text-zinc-100 mb-1">
               {etape.titre}
             </h4>
             <p className="text-sm text-zinc-400">{etape.texte}</p>
-          </motion.div>
+          </motion.li>
         ))}
-      </div>
+      </ul>
     </section>
   )
 }
