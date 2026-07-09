@@ -38,7 +38,10 @@ export default {
       animation: {
         'fade-up': 'fadeUp 0.6s ease-out both',
         'blink': 'blink 1s step-end infinite',
-        'slow-zoom': 'slowZoom 20s ease-in-out infinite alternate',
+        'slow-zoom': 'slowZoom 14s ease-in-out infinite alternate',
+        'scan-line': 'scanLine 4s linear infinite',
+        'pulse-alert': 'pulseAlert 2.5s ease-in-out infinite',
+        'grid-drift': 'gridDrift 12s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -50,8 +53,20 @@ export default {
           '50%': { opacity: '0' },
         },
         slowZoom: {
-          from: { transform: 'scale(1)' },
-          to: { transform: 'scale(1.12)' },
+          '0%': { transform: 'scale(1) translate(0, 0)' },
+          '100%': { transform: 'scale(1.18) translate(-1.5%, -1.5%)' },
+        },
+        scanLine: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' },
+        },
+        pulseAlert: {
+          '0%, 100%': { opacity: '0.15' },
+          '50%': { opacity: '0.45' },
+        },
+        gridDrift: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '60px 60px' },
         },
       },
     },

@@ -49,14 +49,22 @@ function Typewriter({ words }) {
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-grid">
+    <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 bg-cover bg-center animate-slow-zoom"
+          className="absolute -inset-4 bg-cover bg-center animate-slow-zoom"
           style={{ backgroundImage: "url('/profil.png')" }}
         />
       </div>
-      <div className="absolute inset-0 bg-black/85 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/80 pointer-events-none" />
+      <div className="absolute inset-0 hero-grid animate-grid-drift pointer-events-none" />
+      <div
+        className="absolute inset-0 pointer-events-none animate-pulse-alert"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,43,43,0.35) 0%, transparent 70%)' }}
+      />
+      <div className="absolute inset-x-0 h-40 pointer-events-none animate-scan-line"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,43,43,0.12), transparent)' }}
+      />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 w-full text-center">
         <motion.div
