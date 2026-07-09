@@ -3,6 +3,7 @@ import Profil from './components/Profil'
 import Competences from './components/Competences'
 import Projets from './components/Projets'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Competences />
       <Projets />
       <Contact />
+      <Footer />
     </>
   )
 }
