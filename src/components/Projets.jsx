@@ -145,8 +145,8 @@ function Tile({ p, idx, open, onToggle }) {
             <span className={`text-xs font-semibold uppercase tracking-wider ${s.text}`}>
               {s.label}
             </span>
-            <span className="text-zinc-700">/</span>
-            <span className="text-xs text-zinc-500">{p.date}</span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-xs text-zinc-400">{p.date}</span>
           </div>
           <h3 className="font-display font-bold text-lg text-zinc-100 leading-tight">
             {p.title}
@@ -165,19 +165,19 @@ function Tile({ p, idx, open, onToggle }) {
             className="overflow-hidden"
           >
             <div className="px-5 pb-6 pt-2 border-t border-divider space-y-5">
-              <p className="text-xs text-zinc-500 uppercase tracking-wide pt-4">
+              <p className="text-xs text-zinc-400 uppercase tracking-wide pt-4">
                 {p.mitre} &nbsp;·&nbsp; {p.technique}
               </p>
-              <p className="text-zinc-400 text-sm leading-relaxed">{p.summary}</p>
+              <p className="text-zinc-300 text-sm leading-relaxed">{p.summary}</p>
 
               <div>
-                <p className="text-xs uppercase tracking-widest text-zinc-600 mb-2.5">
+                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2.5">
                   Commandes exécutées
                 </p>
                 <div className="bg-bg border border-divider p-4 space-y-2">
                   {p.steps.map((step, i) => (
                     <p key={i} className="font-mono text-xs text-zinc-300 leading-relaxed">
-                      <span className="text-zinc-700 select-none mr-2">{i + 1}.</span>
+                      <span className="text-zinc-600 select-none mr-2">{i + 1}.</span>
                       {step}
                     </p>
                   ))}
@@ -185,7 +185,7 @@ function Tile({ p, idx, open, onToggle }) {
               </div>
 
               <div>
-                <p className="text-xs uppercase tracking-widest text-zinc-600 mb-2.5">
+                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2.5">
                   Alertes déclenchées
                 </p>
                 <div className="space-y-2">
@@ -196,16 +196,16 @@ function Tile({ p, idx, open, onToggle }) {
                     </div>
                   ))}
                   {p.rules.map(r => (
-                    <p key={r} className="text-xs text-zinc-600">Rule {r}</p>
+                    <p key={r} className="text-xs text-zinc-500">Rule {r}</p>
                   ))}
                 </div>
               </div>
 
               <div>
-                <p className="text-xs uppercase tracking-widest text-zinc-600 mb-2.5">
+                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2.5">
                   Leçon SOC
                 </p>
-                <p className="text-sm text-zinc-400 leading-relaxed border-l-2 border-accent pl-4">
+                <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-accent pl-4">
                   {p.lesson}
                 </p>
               </div>
@@ -233,7 +233,7 @@ export default function Projets() {
           Mes Projets
         </h2>
         <div className="line-alert" />
-        <p className="text-zinc-500 mt-4 max-w-xl mx-auto leading-relaxed">
+        <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
           Cinq attaques réelles reproduites dans le lab, avec la chaîne de détection Wazuh
           prouvée bout en bout. Cliquer sur une carte pour les détails.
         </p>

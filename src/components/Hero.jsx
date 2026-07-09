@@ -56,7 +56,7 @@ export default function Hero() {
           style={{ backgroundImage: "url('/profil.png')" }}
         />
       </div>
-      <div className="absolute inset-0 bg-black/75 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/85 pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 w-full text-center">
         <motion.div
@@ -66,12 +66,16 @@ export default function Hero() {
         >
           <h1
             className="font-display font-bold uppercase text-hero leading-none mb-4"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
           >
             <span className="text-zinc-100">CHERY </span>
             <span className="text-accent name-glow">Jean-Hadley</span>
           </h1>
 
-          <p className="font-display font-semibold text-hero-sub text-zinc-300">
+          <p
+            className="font-display font-semibold text-hero-sub text-zinc-100"
+            style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
+          >
             <Typewriter words={ROLES} />
           </p>
         </motion.div>

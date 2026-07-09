@@ -76,7 +76,7 @@ export default function Competences() {
             <h3 className="font-display font-bold text-lg text-zinc-100 uppercase mb-3">
               {c.titre}
             </h3>
-            <p className="text-sm text-zinc-400 leading-relaxed">{c.texte}</p>
+            <p className="text-sm text-zinc-300 leading-relaxed">{c.texte}</p>
           </motion.div>
         ))}
       </motion.div>

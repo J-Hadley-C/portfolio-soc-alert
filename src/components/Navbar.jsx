@@ -45,7 +45,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="sm:hidden text-zinc-500 hover:text-zinc-100 p-1"
+          className="sm:hidden text-zinc-400 hover:text-zinc-100 p-1"
           onClick={() => setOpen(o => !o)}
           aria-label="Menu"
         >
@@ -60,7 +60,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+              className="text-sm text-zinc-300 hover:text-zinc-100 transition-colors"
             >
               {l.label}
             </a>

@@ -47,18 +47,18 @@ export default function Profil() {
             <strong className="text-zinc-100 font-semibold">cybersécurité SOC</strong> — attiré
             par la détection de menaces, l'investigation d'incidents et la défense des systèmes.
           </p>
-          <p className="text-zinc-400 leading-relaxed">
+          <p className="text-zinc-300 leading-relaxed">
             Pour valider mes compétences de manière concrète, j'ai monté un{' '}
             <strong className="text-zinc-300 font-medium">lab SOC complet de A à Z</strong> :{' '}
             VirtualBox, Wazuh 4.12.0 en Docker/WSL2, un Active Directory Windows Server 2022 et
             Kali Linux comme machine attaquante sur un réseau isolé.
           </p>
-          <p className="text-zinc-400 leading-relaxed">
+          <p className="text-zinc-300 leading-relaxed">
             Dans ce lab, je reproduis des techniques d'attaque réelles référencées dans le
             framework MITRE ATT&CK, je construis les règles de détection Wazuh, et je prouve que
             les alertes se déclenchent — de bout en bout, en conditions réelles.
           </p>
-          <p className="text-zinc-400 leading-relaxed">
+          <p className="text-zinc-300 leading-relaxed">
             Je cherche un{' '}
             <span className="text-accent font-semibold">premier poste de SOC Analyst Junior</span>{' '}
             pour continuer à apprendre au contact d'une équipe Blue Team.
@@ -77,7 +77,7 @@ export default function Profil() {
               href="https://www.linkedin.com/in/hadley-chery/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm border border-divider text-zinc-400 px-5 py-2.5 rounded-[10px]
+              className="text-sm border border-divider text-zinc-300 px-5 py-2.5 rounded-[10px]
                 hover:border-accent hover:text-accent transition-colors duration-200"
             >
               LinkedIn →
@@ -106,7 +106,7 @@ export default function Profil() {
             <h4 className="font-display font-semibold text-lg text-zinc-100 mb-1">
               {etape.titre}
             </h4>
-            <p className="text-sm text-zinc-400">{etape.texte}</p>
+            <p className="text-sm text-zinc-300">{etape.texte}</p>
           </motion.li>
         ))}
       </ul>

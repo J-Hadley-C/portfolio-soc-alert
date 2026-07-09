@@ -46,7 +46,7 @@ export default function Contact() {
           Travaillons Ensemble
         </h2>
         <div className="line-alert" />
-        <p className="text-zinc-500 mt-4 max-w-md mx-auto leading-relaxed">
+        <p className="text-zinc-400 mt-4 max-w-md mx-auto leading-relaxed">
           Disponible pour un poste SOC Junior, un stage ou tout échange autour de la
           cybersécurité.
         </p>
@@ -69,13 +69,13 @@ export default function Contact() {
               className="flex items-center gap-5 p-5 bg-surface border border-divider
                 hover:border-accent/50 hover:bg-elevated/40 transition-all duration-200 group"
             >
-              <span className="text-xs text-zinc-600 uppercase tracking-wider w-16 flex-shrink-0">
+              <span className="text-xs text-zinc-500 uppercase tracking-wider w-16 flex-shrink-0">
                 {l.label}
               </span>
               <span className="text-sm text-zinc-300 group-hover:text-accent transition-colors truncate">
                 {l.value}
               </span>
-              <span className="ml-auto text-zinc-700 group-hover:text-accent transition-colors flex-shrink-0 text-lg">
+              <span className="ml-auto text-zinc-600 group-hover:text-accent transition-colors flex-shrink-0 text-lg">
                 →
               </span>
             </a>
@@ -83,7 +83,7 @@ export default function Contact() {
 
           <div className="mt-4 p-4 border border-accent/20 bg-accent-dim/30">
             <p className="text-sm text-accent font-semibold">Disponible — Immédiatement</p>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-zinc-400 mt-1">
               En recherche active d'un premier poste SOC Analyst Junior.
             </p>
           </div>
@@ -102,10 +102,10 @@ export default function Contact() {
               <p className="font-display font-bold text-xl text-zinc-100 mb-2 uppercase">
                 Message envoyé
               </p>
-              <p className="text-sm text-zinc-500">Je vous répondrai dès que possible.</p>
+              <p className="text-sm text-zinc-400">Je vous répondrai dès que possible.</p>
               <button
                 onClick={() => setStatus('idle')}
-                className="mt-6 text-xs text-zinc-600 hover:text-accent transition-colors"
+                className="mt-6 text-xs text-zinc-500 hover:text-accent transition-colors"
               >
                 Envoyer un autre message
               </button>
@@ -117,7 +117,7 @@ export default function Contact() {
                 { name: 'email', label: 'Email', type: 'email', ph: 'votre@email.com' },
               ].map(f => (
                 <div key={f.name}>
-                  <label className="text-xs uppercase tracking-wider text-zinc-500 block mb-2">
+                  <label className="text-xs uppercase tracking-wider text-zinc-400 block mb-2">
                     {f.label}
                   </label>
                   <input
@@ -129,13 +129,13 @@ export default function Contact() {
                     required
                     className="w-full bg-surface border border-divider text-zinc-100 text-sm
                       px-4 py-3 focus:outline-none focus:border-accent transition-colors
-                      placeholder:text-zinc-700"
+                      placeholder:text-zinc-600"
                   />
                 </div>
               ))}
 
               <div>
-                <label className="text-xs uppercase tracking-wider text-zinc-500 block mb-2">
+                <label className="text-xs uppercase tracking-wider text-zinc-400 block mb-2">
                   Message
                 </label>
                 <textarea
@@ -147,7 +147,7 @@ export default function Contact() {
                   rows={5}
                   className="w-full bg-surface border border-divider text-zinc-100 text-sm
                     px-4 py-3 focus:outline-none focus:border-accent transition-colors
-                    placeholder:text-zinc-700 resize-none"
+                    placeholder:text-zinc-600 resize-none"
                 />
               </div>
 
