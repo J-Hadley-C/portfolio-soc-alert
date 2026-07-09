@@ -7,6 +7,14 @@ const SEV = {
   medium:   { label: 'MEDIUM',   bar: 'bg-medium',   text: 'text-medium',   border: 'border-l-medium' },
 }
 
+const ICONS = {
+  1: 'bi-shield-slash-fill',
+  2: 'bi-key-fill',
+  3: 'bi-cloud-arrow-up-fill',
+  4: 'bi-envelope-exclamation-fill',
+  5: 'bi-diagram-3-fill',
+}
+
 const PROJECTS = [
   {
     id: 1,
@@ -109,8 +117,7 @@ const PROJECTS = [
   },
 ]
 
-function Card({ p, idx }) {
-  const [open, setOpen] = useState(false)
+function Tile({ p, idx, open, onToggle }) {
   const s = SEV[p.sev]
 
   return (
@@ -119,47 +126,32 @@ function Card({ p, idx }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: idx * 0.06 }}
-      className={`bg-surface border border-divider border-l-4 ${s.border} overflow-hidden`}
+      className="group bg-surface rounded-2xl overflow-hidden
+        shadow-[0_13px_8px_-10px_rgba(0,0,0,0.3)]"
     >
       <button
-        onClick={() => setOpen(o => !o)}
-        className="w-full text-left px-6 py-5 hover:bg-elevated/30 transition-colors duration-150"
+        onClick={onToggle}
+        className="w-full text-left"
         aria-expanded={open}
       >
-        <div className="flex items-start gap-4 justify-between">
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2.5 mb-3">
-              <span className={`text-xs font-semibold uppercase tracking-wider ${s.text}`}>
-                {s.label}
-              </span>
-              <span className="text-zinc-700">·</span>
-              <span className="text-xs text-accent font-medium">Détection prouvée ✓</span>
-              {p.rules.map(r => (
-                <span key={r} className="text-xs text-zinc-600">
-                  Rule {r}
-                </span>
-              ))}
-            </div>
-
-            <h3 className="font-display font-bold text-xl sm:text-2xl text-zinc-100 leading-tight mb-2">
-              {p.title}
-            </h3>
-
-            <p className="text-xs text-zinc-500 uppercase tracking-wide">
-              {p.mitre} &nbsp;·&nbsp; {p.technique}
-            </p>
-          </div>
-
-          <motion.span
-            animate={{ rotate: open ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="text-zinc-600 text-xl mt-1 flex-shrink-0"
-          >
-            ↓
-          </motion.span>
+        <div
+          className="h-40 flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
+          style={{ background: 'linear-gradient(135deg, #3a0a0a 0%, #ff2b2b 140%)' }}
+        >
+          <i className={`bi ${ICONS[p.id]} text-6xl text-white/90`} />
         </div>
-
-        <p className="text-zinc-400 text-sm mt-3 leading-relaxed text-left">{p.summary}</p>
+        <div className="p-5">
+          <div className="flex items-center gap-2 mb-2">
+            <span className={`text-xs font-semibold uppercase tracking-wider ${s.text}`}>
+              {s.label}
+            </span>
+            <span className="text-zinc-700">/</span>
+            <span className="text-xs text-zinc-500">{p.date}</span>
+          </div>
+          <h3 className="font-display font-bold text-lg text-zinc-100 leading-tight">
+            {p.title}
+          </h3>
+        </div>
       </button>
 
       <AnimatePresence initial={false}>
@@ -172,7 +164,12 @@ function Card({ p, idx }) {
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-6 pt-5 border-t border-divider space-y-5">
+            <div className="px-5 pb-6 pt-2 border-t border-divider space-y-5">
+              <p className="text-xs text-zinc-500 uppercase tracking-wide pt-4">
+                {p.mitre} &nbsp;·&nbsp; {p.technique}
+              </p>
+              <p className="text-zinc-400 text-sm leading-relaxed">{p.summary}</p>
+
               <div>
                 <p className="text-xs uppercase tracking-widest text-zinc-600 mb-2.5">
                   Commandes exécutées
@@ -198,6 +195,9 @@ function Card({ p, idx }) {
                       <span className="font-mono text-xs text-zinc-200 leading-relaxed">{d}</span>
                     </div>
                   ))}
+                  {p.rules.map(r => (
+                    <p key={r} className="text-xs text-zinc-600">Rule {r}</p>
+                  ))}
                 </div>
               </div>
 
@@ -209,8 +209,6 @@ function Card({ p, idx }) {
                   {p.lesson}
                 </p>
               </div>
-
-              <p className="text-xs text-zinc-700 text-right">{p.date}</p>
             </div>
           </motion.div>
         )}
@@ -220,6 +218,8 @@ function Card({ p, idx }) {
 }
 
 export default function Projets() {
+  const [openId, setOpenId] = useState(null)
+
   return (
     <section id="projets" className="py-24 px-6 max-w-6xl mx-auto">
       <motion.div
@@ -239,8 +239,16 @@ export default function Projets() {
         </p>
       </motion.div>
 
-      <div className="space-y-3">
-        {PROJECTS.map((p, i) => <Card key={p.id} p={p} idx={i} />)}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        {PROJECTS.map((p, i) => (
+          <Tile
+            key={p.id}
+            p={p}
+            idx={i}
+            open={openId === p.id}
+            onToggle={() => setOpenId(id => (id === p.id ? null : p.id))}
+          />
+        ))}
       </div>
     </section>
   )
