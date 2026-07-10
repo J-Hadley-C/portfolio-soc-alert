@@ -26,6 +26,11 @@ const CATEGORIES = [
     titre: 'Scripting',
     texte: "Automatisation et exploitation via PowerShell côté Windows, Bash côté Linux.",
   },
+  {
+    icon: 'bi-robot',
+    titre: 'Automatisation & IA (SOAR)',
+    texte: "Conception d'un workflow n8n de Threat Intelligence agentique (23 nœuds) : enrichissement multi-sources (GreyNoise, AbuseIPDB, MISP, VirusTotal, AlienVault OTX), analyse par IA (API Claude/Anthropic) et réponse automatisée (création d'événements MISP, alertes Slack).",
+  },
 ]
 
 const container = {
