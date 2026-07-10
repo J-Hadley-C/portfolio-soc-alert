@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 // Remplacer YOUR_FORM_ID après inscription sur formspree.io
-const FORMSPREE = 'https://formspree.io/f/YOUR_FORM_ID'
+const FORMSPREE = 'https://formspree.io/f/xlgyqzoa'
 
 const LINKS = [
   { label: 'CV', value: 'Voir en ligne', href: '/CV-CHERY-Jean-Hadley-SOC-Analyst.pdf', external: true },
