@@ -6,7 +6,7 @@ const FORMSPREE = 'https://formspree.io/f/xlgyqzoa'
 
 const LINKS = [
   { label: 'CV', value: 'Voir en ligne', href: '/CV-CHERY-Jean-Hadley-SOC-Analyst.pdf', external: true },
-  { label: 'Email', value: 'jhadleyc@mail.com', href: 'mailto:jhadleyc@mail.com' },
+  { label: 'Email', value: 'jhadleyc@gmail.com', href: 'mailto:jhadleyc@gmail.com' },
   { label: 'LinkedIn', value: 'linkedin.com/in/hadley-chery', href: 'https://www.linkedin.com/in/hadley-chery/', external: true },
   { label: 'GitHub', value: 'github.com/j-Hadley-C', href: 'https://github.com/j-Hadley-C', external: true },
 ]
@@ -153,7 +153,7 @@ export default function Contact() {
 
               {status === 'error' && (
                 <p className="text-xs text-critical">
-                  Erreur lors de l'envoi. Écrivez-moi directement à jhadleyc@mail.com.
+                  Erreur lors de l'envoi. Écrivez-moi directement à jhadleyc@gmail.com.
                 </p>
               )}
 
