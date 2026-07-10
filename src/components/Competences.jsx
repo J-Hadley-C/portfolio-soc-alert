@@ -2,6 +2,11 @@ import { motion } from 'framer-motion'
 
 const CATEGORIES = [
   {
+    icon: 'bi-robot',
+    titre: 'Automatisation & IA (SOAR)',
+    texte: "Conception d'un workflow n8n de Threat Intelligence agentique (23 nœuds) : enrichissement multi-sources (GreyNoise, AbuseIPDB, MISP, VirusTotal, AlienVault OTX), analyse par IA (API Claude/Anthropic) et réponse automatisée (création d'événements MISP, alertes Slack).",
+  },
+  {
     icon: 'bi-shield-fill-check',
     titre: 'Détection & SIEM',
     texte: "Déploiement et configuration de Wazuh 4.12 (SIEM open-source) : écriture de règles de détection personnalisées, tests de déclenchement prouvés de bout en bout. Techniques d'attaque reproduites et cartographiées selon le framework MITRE ATT&CK.",
@@ -25,11 +30,6 @@ const CATEGORIES = [
     icon: 'bi-terminal-fill',
     titre: 'Scripting',
     texte: "Automatisation et exploitation via PowerShell côté Windows, Bash côté Linux.",
-  },
-  {
-    icon: 'bi-robot',
-    titre: 'Automatisation & IA (SOAR)',
-    texte: "Conception d'un workflow n8n de Threat Intelligence agentique (23 nœuds) : enrichissement multi-sources (GreyNoise, AbuseIPDB, MISP, VirusTotal, AlienVault OTX), analyse par IA (API Claude/Anthropic) et réponse automatisée (création d'événements MISP, alertes Slack).",
   },
 ]
 
