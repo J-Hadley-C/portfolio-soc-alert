@@ -82,9 +82,9 @@ export default function Contact() {
           ))}
 
           <div className="mt-4 p-4 border border-accent/20 bg-accent-dim/30">
-            <p className="text-sm text-accent font-semibold">Disponible — Immédiatement</p>
+            <p className="text-sm text-accent font-semibold">Ouvert aux opportunités</p>
             <p className="text-xs text-zinc-400 mt-1">
-              En recherche active d'un premier poste SOC Analyst Junior.
+              En poste actuellement, à l'écoute d'un premier rôle SOC Analyst Junior.
             </p>
           </div>
         </motion.div>

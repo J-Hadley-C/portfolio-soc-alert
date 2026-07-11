@@ -9,12 +9,13 @@ const fadeUp = (delay = 0) => ({
 
 const ETAPES = [
   { titre: 'Formation initiale', texte: 'Développement logiciel' },
+  { titre: '20 ans d\'expérience IT', texte: 'Technicien → Team Leader' },
   { titre: 'Reconversion', texte: 'Cybersécurité SOC' },
   { titre: 'Lab monté', texte: 'VirtualBox + Wazuh + AD + Kali' },
-  { titre: 'Statut', texte: 'Disponible — 1er poste SOC Junior' },
+  { titre: 'Statut', texte: 'Ouvert aux opportunités — 1er poste SOC Junior' },
 ]
 
-const COULEURS = ['#ff2b2b', '#ff5b1f', '#ff7a12', '#ff8c00']
+const COULEURS = ['#ff2b2b', '#ff4519', '#ff5b1f', '#ff7a12', '#ff8c00']
 
 const item = {
   initial: { opacity: 0, y: 24 },
@@ -43,7 +44,9 @@ export default function Profil() {
 
         <motion.div {...fadeUp(0.2)} className="lg:col-span-3 space-y-5">
           <p className="text-zinc-300 leading-relaxed text-lg">
-            Développeur de formation, j'ai choisi de me reconvertir vers la{' '}
+            20 ans d'expérience IT — de technicien informatique à{' '}
+            <strong className="text-zinc-100 font-semibold">Team Leader</strong> — avant de
+            choisir de me reconvertir vers la{' '}
             <strong className="text-zinc-100 font-semibold">cybersécurité SOC</strong> — attiré
             par la détection de menaces, l'investigation d'incidents et la défense des systèmes.
           </p>
