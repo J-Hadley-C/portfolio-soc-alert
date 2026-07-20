@@ -141,7 +141,7 @@ const PROJECTS = [
   },
 ]
 
-function Tile({ p, idx, open, onToggle }) {
+function Tile({ p, idx, open, onToggle, onOpenReport }) {
   const s = SEV[p.sev]
 
   return (
@@ -185,15 +185,13 @@ function Tile({ p, idx, open, onToggle }) {
               {p.title}
             </h3>
             {p.report && (
-              <a
-                href={p.report}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={e => e.stopPropagation()}
+              <button
+                type="button"
+                onClick={e => { e.stopPropagation(); onOpenReport(p.report) }}
                 className="inline-flex items-center gap-1 border border-accent text-accent text-xs font-medium px-2.5 py-1 rounded-md hover:bg-accent hover:text-white transition-colors duration-150 flex-shrink-0 whitespace-nowrap"
               >
                 <i className="bi bi-file-earmark-text" /> Rapport
-              </a>
+              </button>
             )}
           </div>
         </div>
@@ -264,6 +262,7 @@ function Tile({ p, idx, open, onToggle }) {
 
 export default function Projets() {
   const [openId, setOpenId] = useState(null)
+  const [reportUrl, setReportUrl] = useState(null)
 
   return (
     <section id="projets" className="py-24 px-6 max-w-6xl mx-auto">
@@ -292,9 +291,61 @@ export default function Projets() {
             idx={i}
             open={openId === p.id}
             onToggle={() => setOpenId(id => (id === p.id ? null : p.id))}
+            onOpenReport={setReportUrl}
           />
         ))}
       </div>
+
+      <AnimatePresence>
+        {reportUrl && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-8"
+            onClick={() => setReportUrl(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative bg-surface rounded-xl overflow-hidden w-full max-w-4xl h-[90vh] flex flex-col shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-4 py-3 border-b border-divider flex-shrink-0">
+                <span className="text-sm font-medium text-zinc-200 flex items-center gap-2">
+                  <i className="bi bi-file-earmark-text text-accent" /> Rapport d'audit — OWASP ZAP
+                </span>
+                <div className="flex items-center gap-3">
+                  <a
+                    href={reportUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-zinc-400 hover:text-accent transition-colors"
+                  >
+                    Plein écran ↗
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setReportUrl(null)}
+                    aria-label="Fermer"
+                    className="text-zinc-400 hover:text-white transition-colors text-xl leading-none"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+              <iframe
+                src={reportUrl}
+                title="Rapport d'audit OWASP ZAP"
+                className="flex-1 w-full bg-white"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
