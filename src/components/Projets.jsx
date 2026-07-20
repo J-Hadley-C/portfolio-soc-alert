@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import RapportAuditZAP from './RapportAuditZAP'
 
 const SEV = {
   critical: { label: 'CRITICAL', bar: 'bg-critical', text: 'text-critical', border: 'border-l-critical' },
@@ -318,14 +319,13 @@ export default function Projets() {
                 <span className="text-sm font-medium text-zinc-200 flex items-center gap-2">
                   <i className="bi bi-file-earmark-text text-accent" /> Rapport d'audit — OWASP ZAP
                 </span>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <a
                     href={reportUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-zinc-400 hover:text-accent transition-colors"
+                    download
+                    className="text-xs text-zinc-400 hover:text-accent transition-colors flex items-center gap-1"
                   >
-                    Plein écran ↗
+                    <i className="bi bi-download" /> PDF
                   </a>
                   <button
                     type="button"
@@ -337,11 +337,9 @@ export default function Projets() {
                   </button>
                 </div>
               </div>
-              <iframe
-                src={reportUrl}
-                title="Rapport d'audit OWASP ZAP"
-                className="flex-1 w-full bg-white"
-              />
+              <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6">
+                <RapportAuditZAP />
+              </div>
             </motion.div>
           </motion.div>
         )}
