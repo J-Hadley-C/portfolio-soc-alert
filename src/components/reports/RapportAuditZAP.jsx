@@ -1,72 +1,13 @@
-// Rapport d'audit OWASP ZAP — rendu HTML natif (affichage fiable dans la modale,
-// indépendant du lecteur PDF du navigateur).
-
-function H2({ children }) {
-  return (
-    <h3 className="font-display font-bold text-xl text-accent uppercase tracking-wide mt-8 mb-3 first:mt-0">
-      {children}
-    </h3>
-  )
-}
-
-function H3({ children }) {
-  return <h4 className="font-display font-semibold text-base text-zinc-100 mt-5 mb-2">{children}</h4>
-}
-
-function Cmd({ term, children }) {
-  return (
-    <div className="my-3">
-      {term && (
-        <p className="text-xs font-semibold text-accent mb-1">Terminal : {term}</p>
-      )}
-      <pre className="bg-bg border border-divider rounded-md p-3 overflow-x-auto">
-        <code className="font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre">{children}</code>
-      </pre>
-    </div>
-  )
-}
-
-function Table({ head, rows }) {
-  return (
-    <div className="overflow-x-auto my-3">
-      <table className="w-full text-left border-collapse text-sm">
-        <thead>
-          <tr>
-            {head.map((h, i) => (
-              <th key={i} className="border-b-2 border-accent/50 py-2 pr-4 text-xs uppercase tracking-wide text-accent font-semibold">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i} className="border-b border-divider">
-              {r.map((c, j) => (
-                <td key={j} className="py-2 pr-4 text-zinc-300 align-top leading-relaxed">{c}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
+import { ReportHeader, H2, H3, Cmd, Table } from './ReportUI'
 
 export default function RapportAuditZAP() {
   return (
     <article className="text-zinc-300 leading-relaxed">
-      <header className="mb-6 pb-4 border-b border-divider">
-        <h2 className="font-display font-bold text-2xl text-zinc-100 mb-2">
-          Procédure d'audit web avec OWASP ZAP
-        </h2>
-        <p className="text-sm text-zinc-400">
-          Détection — Remédiation — Vérification &nbsp;·&nbsp; Exercice 2A, Chapitre 4 (Attaques Web)
-        </p>
-        <p className="text-xs text-zinc-500 mt-1">
-          CHERY Jean-Hadley — Lab SOC personnel &nbsp;·&nbsp; 20 juillet 2026 &nbsp;·&nbsp; OWASP ZAP 2.17.0 (scan passif)
-        </p>
-      </header>
+      <ReportHeader
+        title="Procédure d'audit web avec OWASP ZAP"
+        subtitle="Détection — Remédiation — Vérification · Exercice 2A, Chapitre 4 (Attaques Web)"
+        meta="CHERY Jean-Hadley — Lab SOC personnel · 20 juillet 2026 · OWASP ZAP 2.17.0 (scan passif)"
+      />
 
       <H2>1. Objectif</H2>
       <p>
@@ -90,13 +31,10 @@ export default function RapportAuditZAP() {
       <H3>Étape 1 — Vérifier si ZAP est installé</H3>
       <Cmd term="Kali">which zaproxy</Cmd>
       <p>Résultat : aucune sortie → ZAP non installé.</p>
-
       <H3>Étape 2 — Installer ZAP</H3>
       <Cmd term="Kali">sudo apt update && sudo apt install -y zaproxy</Cmd>
-
       <H3>Étape 3 — Lancer ZAP</H3>
       <Cmd term="Kali">zaproxy &</Cmd>
-
       <H3>Étape 4 — Scan passif (interface ZAP)</H3>
       <p>
         Principe du scan passif : ZAP se place en proxy entre le navigateur et le site et observe le
@@ -108,7 +46,6 @@ export default function RapportAuditZAP() {
         suivre les liens sortants (LinkedIn, GitHub, e-mail). Un scan passif suit tout le trafic ; cliquer
         ces liens ferait analyser des sites tiers hors périmètre.
       </p>
-
       <H3>Étape 5 — Lire les résultats</H3>
       <p>
         Panneau du bas → onglet Alerts (rouge = High, orange = Medium, jaune = Low, bleu = Info).
@@ -150,16 +87,13 @@ export default function RapportAuditZAP() {
   ]
 }]`}</Cmd>
       <p>Le CSP est adapté au site (autorise Google Fonts et le formulaire Formspree).</p>
-
       <H3>Étape 7 — Déployer</H3>
       <Cmd term="PowerShell Windows">{`git add vercel.json
 git commit -m "Ajoute les en-tetes de securite HTTP (audit OWASP ZAP)"
 git push`}</Cmd>
-
       <H3>Étape 8 — Vérifier les en-têtes en ligne</H3>
       <Cmd term="PowerShell Windows">{`Invoke-WebRequest -Uri "<url>" -Method Head -UseBasicParsing`}</Cmd>
       <p>Résultat : les 6 en-têtes présents sur le serveur.</p>
-
       <H3>Étape 9 — Re-scanner</H3>
       <p>
         Nouvelle session ZAP → Manual Explore → même URL → re-scan.

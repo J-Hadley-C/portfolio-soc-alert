@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import RapportAuditZAP from './RapportAuditZAP'
+import { REPORTS } from './reports'
 
 const SEV = {
   critical: { label: 'CRITICAL', bar: 'bg-critical', text: 'text-critical', border: 'border-l-critical' },
@@ -22,6 +22,7 @@ const PROJECTS = [
     id: 1,
     title: 'Évasion Antivirus & Détection Wazuh',
     sev: 'high',
+    report: '/rapports/evasion-antivirus.pdf',
     rules: ['62123 (niv.12)', '62124 (niv.3)'],
     mitre: 'T1562 — Impair Defenses',
     technique: 'msfvenom + encodage shikata_ga_nai',
@@ -42,6 +43,7 @@ const PROJECTS = [
     id: 2,
     title: 'Credential Dumping — SAM / NTLM',
     sev: 'critical',
+    report: '/rapports/credential-dumping.pdf',
     rules: ['92026 (niv.14)'],
     mitre: 'T1003.002 — OS Credential Dumping',
     technique: 'reg.exe + Impacket secretsdump',
@@ -62,6 +64,7 @@ const PROJECTS = [
     id: 3,
     title: 'Exfiltration HTTP non chiffrée',
     sev: 'critical',
+    report: '/rapports/exfiltration-http.pdf',
     rules: ['100010 (niv.12)', '100011 (niv.14)'],
     mitre: 'T1048.003 — Exfiltration Over Unencrypted Protocol',
     technique: 'PowerShell Invoke-WebRequest vers HTTP python3',
@@ -81,6 +84,7 @@ const PROJECTS = [
     id: 4,
     title: 'Phishing msfvenom — Chaîne complète',
     sev: 'high',
+    report: '/rapports/phishing-msfvenom.pdf',
     rules: ['62123 (niv.12)', '62124 (niv.3)'],
     mitre: 'T1566 — Phishing',
     technique: 'Payload .exe déguisé en facture, livraison HTTP',
@@ -188,7 +192,7 @@ function Tile({ p, idx, open, onToggle, onOpenReport }) {
             {p.report && (
               <button
                 type="button"
-                onClick={e => { e.stopPropagation(); onOpenReport(p.report) }}
+                onClick={e => { e.stopPropagation(); onOpenReport(p) }}
                 className="inline-flex items-center gap-1 border border-accent text-accent text-xs font-medium px-2.5 py-1 rounded-md hover:bg-accent hover:text-white transition-colors duration-150 flex-shrink-0 whitespace-nowrap"
               >
                 <i className="bi bi-file-earmark-text" /> Rapport
@@ -263,7 +267,8 @@ function Tile({ p, idx, open, onToggle, onOpenReport }) {
 
 export default function Projets() {
   const [openId, setOpenId] = useState(null)
-  const [reportUrl, setReportUrl] = useState(null)
+  const [reportProj, setReportProj] = useState(null)
+  const ReportComp = reportProj ? REPORTS[reportProj.id] : null
 
   return (
     <section id="projets" className="py-24 px-6 max-w-6xl mx-auto">
@@ -292,20 +297,20 @@ export default function Projets() {
             idx={i}
             open={openId === p.id}
             onToggle={() => setOpenId(id => (id === p.id ? null : p.id))}
-            onOpenReport={setReportUrl}
+            onOpenReport={setReportProj}
           />
         ))}
       </div>
 
       <AnimatePresence>
-        {reportUrl && (
+        {reportProj && ReportComp && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-8"
-            onClick={() => setReportUrl(null)}
+            onClick={() => setReportProj(null)}
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
@@ -316,20 +321,23 @@ export default function Projets() {
               onClick={e => e.stopPropagation()}
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-divider flex-shrink-0">
-                <span className="text-sm font-medium text-zinc-200 flex items-center gap-2">
-                  <i className="bi bi-file-earmark-text text-accent" /> Rapport d'audit — OWASP ZAP
+                <span className="text-sm font-medium text-zinc-200 flex items-center gap-2 min-w-0">
+                  <i className="bi bi-file-earmark-text text-accent flex-shrink-0" />
+                  <span className="truncate">Rapport — {reportProj.title}</span>
                 </span>
-                <div className="flex items-center gap-4">
-                  <a
-                    href={reportUrl}
-                    download
-                    className="text-xs text-zinc-400 hover:text-accent transition-colors flex items-center gap-1"
-                  >
-                    <i className="bi bi-download" /> PDF
-                  </a>
+                <div className="flex items-center gap-4 flex-shrink-0">
+                  {reportProj.report && (
+                    <a
+                      href={reportProj.report}
+                      download
+                      className="text-xs text-zinc-400 hover:text-accent transition-colors flex items-center gap-1"
+                    >
+                      <i className="bi bi-download" /> PDF
+                    </a>
+                  )}
                   <button
                     type="button"
-                    onClick={() => setReportUrl(null)}
+                    onClick={() => setReportProj(null)}
                     aria-label="Fermer"
                     className="text-zinc-400 hover:text-white transition-colors text-xl leading-none"
                   >
@@ -338,7 +346,7 @@ export default function Projets() {
                 </div>
               </div>
               <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6">
-                <RapportAuditZAP />
+                <ReportComp />
               </div>
             </motion.div>
           </motion.div>
