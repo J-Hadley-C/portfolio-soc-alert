@@ -13,6 +13,7 @@ const ICONS = {
   3: 'bi-cloud-arrow-up-fill',
   4: 'bi-envelope-exclamation-fill',
   5: 'bi-diagram-3-fill',
+  6: 'bi-shield-check',
 }
 
 const PROJECTS = [
@@ -115,6 +116,29 @@ const PROJECTS = [
     ],
     lesson: "Reconnaître un scan Nmap dans une capture réseau (SYN sans SYN-ACK, masse de ports, courte durée) est une compétence fondamentale SOC.",
   },
+  {
+    id: 6,
+    title: 'Audit de sécurité web — OWASP ZAP',
+    sev: 'medium',
+    rules: [],
+    report: '/Rapport-Audit-OWASP-ZAP.pdf',
+    mitre: 'OWASP — Secure Headers',
+    technique: 'Scan passif ZAP + correctifs vercel.json',
+    date: '2026-07-20',
+    summary: "Audit passif d'une application web avec OWASP ZAP, mené de bout en bout : 16 faiblesses détectées (surtout des en-têtes de sécurité HTTP manquants), 6 en-têtes ajoutés via vercel.json et vérifiés sur le serveur, re-scan à 9 alertes dont 0 exploitable.",
+    steps: [
+      'sudo apt install -y zaproxy  (Kali)',
+      'ZAP Manual Explore → scan passif sur le périmètre défini',
+      'Édition vercel.json : CSP, HSTS, X-Frame-Options, nosniff, Referrer/Permissions-Policy',
+      'git push → redéploiement → re-scan de vérification',
+    ],
+    detection: [
+      'Scan initial : 16 alertes (0 grave) — en-têtes de sécurité manquants',
+      '6 en-têtes de sécurité déployés via vercel.json, vérifiés sur le serveur',
+      'Re-scan : 9 alertes, 0 exploitable — corrigé & vérifié',
+    ],
+    lesson: "Définir le périmètre AVANT de scanner, et savoir trier une vraie faille d'un bruit d'outil (compromis assumé, faux positif, ressource tierce). Le cycle détecter → corriger → re-tester est le cœur de la sécurisation.",
+  },
 ]
 
 function Tile({ p, idx, open, onToggle }) {
@@ -129,9 +153,17 @@ function Tile({ p, idx, open, onToggle }) {
       className="group bg-surface rounded-2xl overflow-hidden
         shadow-[0_13px_8px_-10px_rgba(0,0,0,0.3)]"
     >
-      <button
+      <div
+        role="button"
+        tabIndex={0}
         onClick={onToggle}
-        className="w-full text-left"
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            onToggle()
+          }
+        }}
+        className="w-full text-left cursor-pointer"
         aria-expanded={open}
       >
         <div
@@ -148,11 +180,24 @@ function Tile({ p, idx, open, onToggle }) {
             <span className="text-zinc-600">/</span>
             <span className="text-xs text-zinc-400">{p.date}</span>
           </div>
-          <h3 className="font-display font-bold text-lg text-zinc-100 leading-tight">
-            {p.title}
-          </h3>
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="font-display font-bold text-lg text-zinc-100 leading-tight flex-1">
+              {p.title}
+            </h3>
+            {p.report && (
+              <a
+                href={p.report}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+                className="inline-flex items-center gap-1 border border-accent text-accent text-xs font-medium px-2.5 py-1 rounded-md hover:bg-accent hover:text-white transition-colors duration-150 flex-shrink-0 whitespace-nowrap"
+              >
+                <i className="bi bi-file-earmark-text" /> Rapport
+              </a>
+            )}
+          </div>
         </div>
-      </button>
+      </div>
 
       <AnimatePresence initial={false}>
         {open && (
@@ -234,8 +279,8 @@ export default function Projets() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
-          Cinq attaques réelles reproduites dans le lab, avec la chaîne de détection Wazuh
-          prouvée bout en bout. Cliquer sur une carte pour les détails.
+          Six projets du lab : cinq attaques réelles détectées bout en bout par Wazuh,
+          et un audit de sécurité web (OWASP ZAP). Cliquer sur une carte pour les détails.
         </p>
       </motion.div>
 
