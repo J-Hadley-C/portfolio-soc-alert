@@ -15,6 +15,7 @@ const ICONS = {
   4: 'bi-envelope-exclamation-fill',
   5: 'bi-diagram-3-fill',
   6: 'bi-shield-check',
+  7: 'bi-database-fill-lock',
 }
 
 const PROJECTS = [
@@ -143,6 +144,28 @@ const PROJECTS = [
       'Re-scan : 9 alertes, 0 exploitable — corrigé & vérifié',
     ],
     lesson: "Définir le périmètre AVANT de scanner, et savoir trier une vraie faille d'un bruit d'outil (compromis assumé, faux positif, ressource tierce). Le cycle détecter → corriger → re-tester est le cœur de la sécurisation.",
+  },
+  {
+    id: 7,
+    title: 'Injection SQL — Attaque, Détection & Correction',
+    sev: 'critical',
+    report: '/rapports/injection-sql.pdf',
+    rules: ['31171 (niv.6)', '31106 (niv.6)'],
+    mitre: 'T1190 — Exploit Public-Facing Application',
+    technique: 'SQLMap (GET) + requête préparée PDO',
+    date: '2026-07-22',
+    summary: "Chaîne complète sur une application PHP vulnérable : extraction de toute la base avec SQLMap, détection de bout en bout dans Wazuh via l'access.log Apache (81 alertes), puis correction par requête préparée prouvée par un rejeu de l'attaque.",
+    steps: [
+      'sqlmap -u ".../login.php?email=test&mdp=test" -p email --batch --dump -D tuto -T users  (Kali)',
+      "Injection manuelle : ' OR '1'='1' --  → connexion sans mot de passe",
+      'Correction : requête préparée PDO ($bdd->prepare(...)->execute([...]))',
+      'Rejeu SQLMap sur la version protégée → paramètre non injectable, aucun dump',
+    ],
+    detection: [
+      'Rule 31171 niv.6  —  SQL injection attempt',
+      'Rule 31106 niv.6  —  A web attack returned code 200 (success)  [T1190]',
+    ],
+    lesson: "Une seule ligne concaténée expose toute une base ; l'attaque automatisée est bruyante (81 alertes) donc détectable ; et il faut comprendre le chaînage des règles Wazuh (la règle finale est journalisée, pas celle attendue). La requête préparée ferme la faille.",
   },
 ]
 
@@ -284,8 +307,9 @@ export default function Projets() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
-          Six projets du lab : cinq attaques réelles détectées bout en bout par Wazuh,
-          et un audit de sécurité web (OWASP ZAP). Cliquer sur une carte pour les détails.
+          Sept projets du lab : des attaques réelles détectées bout en bout par Wazuh,
+          un audit de sécurité web (OWASP ZAP) et une chaîne complète d'injection SQL
+          (attaque, détection, correction). Cliquer sur une carte pour les détails.
         </p>
       </motion.div>
 
