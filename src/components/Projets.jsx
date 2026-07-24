@@ -16,6 +16,7 @@ const ICONS = {
   5: 'bi-diagram-3-fill',
   6: 'bi-shield-check',
   7: 'bi-database-fill-lock',
+  8: 'bi-shield-lock-fill',
 }
 
 const PROJECTS = [
@@ -167,6 +168,30 @@ const PROJECTS = [
     ],
     lesson: "Une seule ligne concaténée expose toute une base ; l'attaque automatisée est bruyante (81 alertes) donc détectable ; et il faut comprendre le chaînage des règles Wazuh (la règle finale est journalisée, pas celle attendue). La requête préparée ferme la faille.",
   },
+  {
+    id: 8,
+    title: 'Force brute RDP — Détection Wazuh',
+    sev: 'high',
+    report: '/rapports/bruteforce-rdp.pdf',
+    rules: ['100014 (niv.12)'],
+    mitre: 'T1110 — Brute Force',
+    technique: 'Hydra RDP + règle Wazuh 100014',
+    date: '2026-07-24',
+    summary: "Force brute RDP depuis Kali (compte leurre) contre un contrôleur de domaine. La règle personnelle 100014 (5 échecs 4625 en 30 s sur le même compte) se déclenche, l'alerte est investiguée dans le SIEM et un verdict d'analyste est rendu. En prime : débogage d'un agent « connecté » mais muet.",
+    steps: [
+      'Activer RDP sur la cible (fDenyTSConnections=0 + règle pare-feu)',
+      "printf '...' > /tmp/pw.txt  (liste de mots de passe, Kali)",
+      'hydra -l hacktest -P /tmp/pw.txt rdp://192.168.56.101 -t 4 -V  (Kali)',
+      'Dashboard : Threat Hunting → rule.id:100014 → déplier l\'alerte',
+      "Investigation : rechercher un Event 4624 (succès) depuis 192.168.56.100",
+    ],
+    detection: [
+      'Rule 100014 niv.12  —  Brute force : 5 échecs en 30 s sur le même compte  [T1110]',
+      'Chaîne : Event 4625 → règle 60122 (Logon Failure) → 100014',
+      'Verdict : 43 échecs, 0 succès (4624) → tentative échouée, pas de compromission',
+    ],
+    lesson: "Un agent SIEM « Active » (vert) peut silencieusement ne plus rien envoyer — angle mort de détection à surveiller. Et dans le dashboard : un filtre resté actif peut cacher une alerte, un niveau élevé (faux positif 92213) n'est pas une vraie menace. Trier le vrai du faux et vérifier la santé des agents = le cœur du métier.",
+  },
 ]
 
 function Tile({ p, idx, open, onToggle, onOpenReport }) {
@@ -307,9 +332,9 @@ export default function Projets() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
-          Sept projets du lab : des attaques réelles détectées bout en bout par Wazuh,
-          un audit de sécurité web (OWASP ZAP) et une chaîne complète d'injection SQL
-          (attaque, détection, correction). Cliquer sur une carte pour les détails.
+          Huit projets du lab : des attaques réelles détectées bout en bout par Wazuh,
+          un audit de sécurité web (OWASP ZAP), une chaîne complète d'injection SQL
+          et une détection de force brute RDP. Cliquer sur une carte pour les détails.
         </p>
       </motion.div>
 
