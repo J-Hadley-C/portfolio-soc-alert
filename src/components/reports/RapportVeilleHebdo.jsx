@@ -1,4 +1,4 @@
-import { ReportHeader, H2, Table } from './ReportUI'
+import { ReportHeader, H2, H3, Table } from './ReportUI'
 
 export default function RapportVeilleHebdo() {
   return (
@@ -126,7 +126,89 @@ export default function RapportVeilleHebdo() {
         </li>
       </ul>
 
-      <H2>8. Ce que ce projet démontre</H2>
+      <H2>8. Exemple de traitement</H2>
+      <p className="text-sm text-zinc-400 border-l-2 border-accent pl-4 my-4">
+        <span className="text-zinc-100 font-semibold">Nature de cet exemple :</span> le format
+        de traitement appliqué à une alerte CERT-FR réelle et publique —{' '}
+        <span className="text-zinc-100">CERTFR-2026-ALE-008</span> du 22 juillet 2026. Il
+        illustre la chaîne de décision, il ne reproduit pas une sortie archivée.
+      </p>
+
+      <H3>Entrée — ce que la collecte a remonté</H3>
+      <Table
+        head={['Élément', 'Valeur']}
+        rows={[
+          ['Référence', 'CERTFR-2026-ALE-008 — Multiples vulnérabilités dans Microsoft SharePoint'],
+          ['Source', 'CERT-FR, publiée le 22 juillet 2026'],
+          ['CVE concernées', 'CVE-2026-50522 et CVE-2026-58644'],
+          ['Corroboration terrain', 'watchTowr (21 juillet) et Defused (20 juillet) — exploitation active et preuve de concept publique'],
+        ]}
+      />
+
+      <H3>Filtrage — pourquoi l&rsquo;article est retenu</H3>
+      <p>
+        Quatre marqueurs déclenchent la rétention, ce qui place l&rsquo;élément très haut dans
+        le tri :
+      </p>
+      <Table
+        head={['Marqueur', 'Présent sous la forme']}
+        rows={[
+          ['CVE', 'Deux références nommées.'],
+          ['RCE', '« Exécution de code arbitraire à distance », attaquant non authentifié.'],
+          ['exploit', 'Preuve de concept publique signalée par watchTowr.'],
+          ['patch', 'Correctifs publiés par Microsoft le 14 juillet 2026.'],
+        ]}
+      />
+
+      <H3>Sortie — le bulletin produit</H3>
+      <Table
+        head={['Champ', 'Contenu']}
+        rows={[
+          ['Résumé', 'Deux vulnérabilités critiques de SharePoint permettent à un attaquant non authentifié d’exécuter du code à distance sur le serveur. Microsoft a publié les correctifs le 14 juillet et confirme que CVE-2026-58644 est activement exploitée. Une preuve de concept publique circule pour CVE-2026-50522, elle aussi exploitée.'],
+          ['Systèmes affectés', 'SharePoint Enterprise Server 2016, SharePoint Server 2019 et SharePoint Server Subscription Edition, dans leurs versions antérieures aux correctifs de juillet 2026.'],
+          ['Criticité', 'Critique'],
+          ['Recommandation', 'Patcher — sans délai.'],
+        ]}
+      />
+
+      <H3>Justification de la criticité</H3>
+      <p>
+        Trois facteurs se cumulent, et c&rsquo;est leur cumul qui impose le niveau maximal :
+        l&rsquo;exécution de code à distance{' '}
+        <span className="text-zinc-100">sans authentification préalable</span>,
+        l&rsquo;exploitation <span className="text-zinc-100">déjà constatée</span> et non
+        seulement théorique, et la{' '}
+        <span className="text-zinc-100">disponibilité publique d&rsquo;une preuve de concept</span>,
+        qui élargit le nombre d&rsquo;attaquants capables d&rsquo;en tirer parti. Une
+        vulnérabilité critique sans exploitation observée serait restée en « Élevé ».
+      </p>
+
+      <H3>Le point d&rsquo;analyse que le bulletin doit porter</H3>
+      <p className="border-l-2 border-accent pl-4 my-4">
+        Appliquer le correctif ne suffit pas. Le CERT-FR précise qu&rsquo;en cas de soupçon de
+        compromission, les secrets doivent être renouvelés —{' '}
+        <span className="text-zinc-100">
+          y compris les clés de machine ASP.NET du serveur SharePoint
+        </span>{' '}
+        —, faute de quoi un attaquant ayant déjà volé ces clés{' '}
+        <span className="text-zinc-100">revient après la mise à jour</span>.
+        <br />
+        <br />
+        C&rsquo;est exactement ce qu&rsquo;un bulletin de veille doit faire remonter : la
+        remédiation évidente est incomplète, et l&rsquo;omettre laisse une porte ouverte que
+        l&rsquo;équipe croira fermée.
+      </p>
+
+      <H3>Ce que ce cas valide dans la conception</H3>
+      <p>
+        Le CERT-FR fournit l&rsquo;avis qui fait autorité ; watchTowr et Defused fournissent la
+        confirmation que l&rsquo;exploitation est réelle. C&rsquo;est précisément le couple{' '}
+        <span className="text-zinc-100">référentiel + terrain</span> décrit en section 2 : sans
+        les sources de terrain, cette alerte aurait été traitée comme une vulnérabilité critique
+        parmi d&rsquo;autres, et non comme une urgence avérée.
+      </p>
+
+      <H2>9. Ce que ce projet démontre</H2>
       <p>
         Savoir où chercher le renseignement, savoir ce qui mérite une alerte, et savoir le
         restituer dans un format qu&rsquo;une équipe peut exploiter. La chaîne technique n&rsquo;est
