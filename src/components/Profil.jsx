@@ -11,11 +11,21 @@ const ETAPES = [
   { titre: 'Formation initiale', texte: 'Développement logiciel' },
   { titre: '20 ans d\'expérience IT', texte: 'Technicien → Team Leader' },
   { titre: 'Reconversion', texte: 'Cybersécurité SOC' },
+  {
+    titre: 'Certification RNCP niveau 7',
+    texte: 'Cybersécurité — niveau 7 du cadre national (équivalent Bac+5)',
+  },
   { titre: 'Lab monté', texte: 'VirtualBox + Wazuh + AD + Kali' },
+  {
+    titre: 'Certification en cours',
+    texte: 'CompTIA Security+ (SY0-701) — session visée : octobre 2026',
+  },
   { titre: 'Statut', texte: 'Ouvert aux opportunités — 1er poste SOC Junior' },
 ]
 
-const COULEURS = ['#ff2b2b', '#ff4519', '#ff5b1f', '#ff7a12', '#ff8c00']
+const COULEURS = [
+  '#ff2b2b', '#ff3d1e', '#ff4f1b', '#ff6118', '#ff7314', '#ff8510', '#ff9500',
+]
 
 const item = {
   initial: { opacity: 0, y: 24 },
@@ -60,6 +70,16 @@ export default function Profil() {
             Dans ce lab, je reproduis des techniques d'attaque réelles référencées dans le
             framework MITRE ATT&CK, je construis les règles de détection Wazuh, et je prouve que
             les alertes se déclenchent — de bout en bout, en conditions réelles.
+          </p>
+          <p className="text-zinc-300 leading-relaxed">
+            Cette reconversion est validée par un{' '}
+            <strong className="text-zinc-100 font-semibold">
+              certificat RNCP de niveau 7 en cybersécurité
+            </strong>{' '}
+            — niveau 7 du cadre national des certifications professionnelles, soit l'équivalent
+            d'un Bac+5. Je prépare actuellement la{' '}
+            <strong className="text-zinc-100 font-semibold">CompTIA Security+</strong> pour la
+            session d'octobre 2026.
           </p>
           <p className="text-zinc-300 leading-relaxed">
             Je cherche un{' '}

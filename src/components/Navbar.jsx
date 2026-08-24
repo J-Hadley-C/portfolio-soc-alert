@@ -5,6 +5,7 @@ const LINKS = [
   { href: '#profil', label: 'Profil' },
   { href: '#competences', label: 'Compétences' },
   { href: '#projets', label: 'Projets' },
+  { href: '#automatisation', label: 'Automatisation' },
   { href: '#contact', label: 'Contact' },
 ]
 

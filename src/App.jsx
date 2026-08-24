@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import Profil from './components/Profil'
 import Competences from './components/Competences'
 import Projets from './components/Projets'
+import Automatisation from './components/Automatisation'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
@@ -18,6 +19,8 @@ export default function App() {
         <Competences />
         <div className="divider-line" />
         <Projets />
+        <div className="divider-line" />
+        <Automatisation />
         <div className="divider-line" />
         <Contact />
       </main>

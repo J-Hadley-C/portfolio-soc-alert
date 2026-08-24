@@ -4,7 +4,7 @@ const CATEGORIES = [
   {
     icon: 'bi-robot',
     titre: 'Automatisation & IA (SOAR)',
-    texte: "Conception d'un workflow n8n de Threat Intelligence agentique (23 nœuds) : enrichissement multi-sources (GreyNoise, AbuseIPDB, MISP, VirusTotal, AlienVault OTX), analyse par IA (API Claude/Anthropic) et réponse automatisée (création d'événements MISP, alertes Slack).",
+    texte: "Deux systèmes conçus et opérés : un workflow n8n de Threat Intelligence agentique (23 nœuds) — enrichissement multi-sources (GreyNoise, AbuseIPDB, MISP, VirusTotal, AlienVault OTX), analyse par IA (API Claude) et réponse automatisée ; et SOC-Threat-Intel-Weekly, une veille cybersécurité hebdomadaire en production (CERT-FR, CVEfeed, bulletins Notion et Gmail).",
   },
   {
     icon: 'bi-shield-fill-check',
