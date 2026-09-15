@@ -17,6 +17,7 @@ const ICONS = {
   6: 'bi-shield-check',
   7: 'bi-database-fill-lock',
   8: 'bi-shield-lock-fill',
+  9: 'bi-person-badge-fill',
 }
 
 const PROJECTS = [
@@ -192,6 +193,31 @@ const PROJECTS = [
     ],
     lesson: "Un agent SIEM « Active » (vert) peut silencieusement ne plus rien envoyer — angle mort de détection à surveiller. Et dans le dashboard : un filtre resté actif peut cacher une alerte, un niveau élevé (faux positif 92213) n'est pas une vraie menace. Trier le vrai du faux et vérifier la santé des agents = le cœur du métier.",
   },
+  {
+    id: 9,
+    title: 'Active Directory — Déploiement & analyse des journaux',
+    sev: 'medium',
+    rules: [],
+    report: '/rapports/active-directory.pdf',
+    mitre: 'T1136 — Create Account · T1098 — Account Manipulation',
+    technique: 'Windows Server 2022 + analyse Event Viewer',
+    date: '2026-09-15',
+    summary: "Déploiement d'un domaine Active Directory de zéro : contrôleur de domaine, DNS intégré, rattachement d'un poste Windows 11, annuaire structuré par service et comptes provisionnés. Puis la partie analyste : retrouver chaque action dans le journal de sécurité — 7 600 lignes filtrées à 25 — et l'interpréter. Quatre pannes réelles diagnostiquées en chemin.",
+    steps: [
+      'Adresse IP fixe + DNS sur 127.0.0.1, renommage AVANT la promotion (SRV-DC01)',
+      'Installation du rôle AD DS, puis promotion — forêt soc.lab (deux étapes distinctes)',
+      'DNS du poste vers le serveur → ping + nslookup soc.lab → rattachement au domaine',
+      'Unités d\'organisation par service, trois comptes, droit attribué par groupe',
+      'Observateur d\'événements : filtre 4720,4724,4732 → corrélation → export .evtx',
+    ],
+    detection: [
+      '4720 + 4724  —  compte créé, puis mot de passe posé  (séquence, pas ligne isolée)',
+      '4741 / compte en $  —  une machine a rejoint le domaine',
+      '4732  —  droit accordé par groupe : journal du domaine OU journal local selon le groupe',
+      'Verdict : 4 séquences pour 3 comptes créés → la 4e était le compte d\'ordinateur du poste',
+    ],
+    lesson: "Une ligne de journal seule ne raconte presque rien : c'est la séquence qui donne le sens. Un 4724 sans 4720 juste avant n'est pas une création de compte mais un mot de passe changé sur un compte existant — l'un des signaux les plus surveillés. Et savoir SUR QUELLE MACHINE chercher un événement vaut autant que connaître son numéro : chercher au mauvais endroit fait conclure à tort qu'il ne s'est rien passé.",
+  },
 ]
 
 function Tile({ p, idx, open, onToggle, onOpenReport }) {
@@ -332,9 +358,10 @@ export default function Projets() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
-          Huit projets du lab : des attaques réelles détectées bout en bout par Wazuh,
-          un audit de sécurité web (OWASP ZAP), une chaîne complète d'injection SQL
-          et une détection de force brute RDP. Cliquer sur une carte pour les détails.
+          Neuf projets du lab : des attaques réelles détectées bout en bout par Wazuh,
+          un audit de sécurité web (OWASP ZAP), une chaîne complète d'injection SQL,
+          une détection de force brute RDP et le déploiement d'une infrastructure
+          Active Directory analysée par ses journaux. Cliquer sur une carte pour les détails.
         </p>
       </motion.div>
 

@@ -5,6 +5,7 @@ import RapportPhishing from './RapportPhishing'
 import RapportAuditZAP from './RapportAuditZAP'
 import RapportInjectionSQL from './RapportInjectionSQL'
 import RapportBruteForce from './RapportBruteForce'
+import RapportActiveDirectory from './RapportActiveDirectory'
 
 // Associe l'id d'un projet à son composant rapport (rendu HTML dans la modale).
 export const REPORTS = {
@@ -15,4 +16,5 @@ export const REPORTS = {
   6: RapportAuditZAP,
   7: RapportInjectionSQL,
   8: RapportBruteForce,
+  9: RapportActiveDirectory,
 }
