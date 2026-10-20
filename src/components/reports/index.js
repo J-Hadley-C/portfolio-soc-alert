@@ -7,6 +7,7 @@ import RapportInjectionSQL from './RapportInjectionSQL'
 import RapportBruteForce from './RapportBruteForce'
 import RapportActiveDirectory from './RapportActiveDirectory'
 import RapportLogsLinuxSplunk from './RapportLogsLinuxSplunk'
+import RapportN8nThreatIntel from './RapportN8nThreatIntel'
 
 // Associe l'id d'un projet à son composant rapport (rendu HTML dans la modale).
 export const REPORTS = {
@@ -19,4 +20,5 @@ export const REPORTS = {
   8: RapportBruteForce,
   9: RapportActiveDirectory,
   10: RapportLogsLinuxSplunk,
+  11: RapportN8nThreatIntel,
 }
