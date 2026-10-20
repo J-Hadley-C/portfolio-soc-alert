@@ -18,6 +18,7 @@ const ICONS = {
   7: 'bi-database-fill-lock',
   8: 'bi-shield-lock-fill',
   9: 'bi-person-badge-fill',
+  10: 'bi-journal-text',
 }
 
 const PROJECTS = [
@@ -218,6 +219,32 @@ const PROJECTS = [
     ],
     lesson: "Une ligne de journal seule ne raconte presque rien : c'est la séquence qui donne le sens. Un 4724 sans 4720 juste avant n'est pas une création de compte mais un mot de passe changé sur un compte existant — l'un des signaux les plus surveillés. Et savoir SUR QUELLE MACHINE chercher un événement vaut autant que connaître son numéro : chercher au mauvais endroit fait conclure à tort qu'il ne s'est rien passé.",
   },
+  {
+    id: 10,
+    title: 'Analyse de logs Linux \u2014 Du manuel au SIEM Splunk',
+    sev: 'high',
+    rules: [],
+    report: '/rapports/logs-linux-splunk.pdf',
+    mitre: 'T1110.001 \u2014 Password Guessing',
+    technique: 'Lecture manuelle + Excel/Power Query + Python + Splunk Enterprise 10.6',
+    date: '2026-10-20',
+    summary: "Investigation sur 2 000 lignes de journaux d'authentification d'un serveur Linux expos\u00e9, couvrant 42,7 jours : 490 \u00e9checs depuis 47 adresses distinctes, dont 71,8 % visant le compte root. Le m\u00eame fichier trait\u00e9 trois fois \u2014 \u00e0 l'\u0153il, par script Python, puis dans Splunk \u2014 et chacun des trois a trouv\u00e9 un \u00e9l\u00e9ment que les deux autres ne pouvaient pas voir. Verdict rendu sur la question qui compte : l'attaque a-t-elle abouti ?",
+    steps: [
+      'Lecture directe de 150 lignes, puis tableau d\u2019analyse \u00e0 six colonnes via Excel et Power Query',
+      'Script Python de d\u00e9tection par motifs + export CSV \u2014 puis une v2 corrig\u00e9e, \u00e9cart mesur\u00e9',
+      'Ingestion dans Splunk Enterprise 10.6 (install\u00e9 et administr\u00e9) \u2014 index main, sourcetype d\u00e9di\u00e9',
+      'SPL : stats count by rhost | sort -count \u2192 classement des 47 sources',
+      'Les quatre vues (\u00c9v\u00e9nements / Patterns / Statistiques / Visualisation), une question par vue',
+    ],
+    detection: [
+      '490 authentication failure \u00b7 47 sources \u00b7 71,8 % sur root  [T1110.001]',
+      '10 tentatives au m\u00eame horodatage \u00e0 la seconde  \u2192  automatisation prouv\u00e9e',
+      'Patterns : 2 motifs couvrent 99,83 % des 608 \u00e9v\u00e8nements  \u2192  signature de programme',
+      'Seuil d\u2019alerte calibr\u00e9 sur la donn\u00e9e : 39 des 47 adresses d\u00e9passent 5 \u00e9checs en 60 s',
+      'Verdict : 0 Accepted, 36 sessions \u00e9cart\u00e9es par 3 preuves  \u2192  tentative, pas compromission',
+    ],
+    lesson: "Mon propre script fonctionnait parfaitement et ne voyait pas l'attaquant principal : son p\u00e9rim\u00e8tre couvrait 15 % du fichier, et l'adresse la plus active \u2014 80 tentatives \u2014 \u00e9tait en dehors. Autre surprise : \u00ab Failed password \u00bb, le motif le plus cit\u00e9 dans la documentation sur la force brute, n'appara\u00eet pas une seule fois ici \u2014 ce journal parle le langage de PAM, pas celui de sshd. Une r\u00e8gle b\u00e2tie sur ce mot-cl\u00e9 n'aurait rien d\u00e9tect\u00e9. Et le finding le plus utile \u00e0 l'exploitant \u2014 logrotate qui \u00e9choue 43 fois, une par jour, donc des journaux non conserv\u00e9s \u2014 ne contient aucun mot-cl\u00e9 d'authentification : seul l'\u0153il pouvait le trouver.",
+  },
 ]
 
 function Tile({ p, idx, open, onToggle, onOpenReport }) {
@@ -358,10 +385,12 @@ export default function Projets() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-xl mx-auto leading-relaxed">
-          Neuf projets du lab : des attaques réelles détectées bout en bout par Wazuh,
+          Dix projets du lab : des attaques réelles détectées bout en bout par Wazuh,
           un audit de sécurité web (OWASP ZAP), une chaîne complète d'injection SQL,
-          une détection de force brute RDP et le déploiement d'une infrastructure
-          Active Directory analysée par ses journaux. Cliquer sur une carte pour les détails.
+          une détection de force brute RDP, le déploiement d'une infrastructure
+          Active Directory analysée par ses journaux, et une investigation complète
+          sur des journaux Linux menée du papier au SIEM Splunk. Cliquer sur une carte
+          pour les détails.
         </p>
       </motion.div>
 
