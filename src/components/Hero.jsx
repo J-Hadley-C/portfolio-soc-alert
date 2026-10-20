@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import ParticleNetwork from './ParticleNetwork'
 
 const ROLES = [
-  'SOC Analyst Junior',
+  'SOC Analyst',
   'Threat Detection',
   'Incident Response',
   'SIEM Engineering',

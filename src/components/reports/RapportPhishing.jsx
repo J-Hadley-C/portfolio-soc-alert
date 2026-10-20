@@ -78,9 +78,9 @@ export default function RapportPhishing() {
       <p>
         La chaîne complète d'un scénario phishing côté SOC est démontrée : création du vecteur, livraison,
         détection automatique par l'EDR (Defender) et remontée d'alerte critique dans le SIEM (rule 62123
-        niveau 12). Un analyste Junior doit savoir lire cette alerte, identifier la menace, et connaître
+        niveau 12). Un analyste SOC doit savoir lire cette alerte, identifier la menace, et connaître
         les actions de réponse. Un attaquant réel utiliserait un framework d'évasion (Cobalt Strike,
-        Sliver) — hors périmètre SOC Junior.
+        Sliver) — hors périmètre d’un SOC de premier niveau.
       </p>
     </article>
   )

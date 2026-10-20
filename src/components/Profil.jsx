@@ -20,7 +20,7 @@ const ETAPES = [
     titre: 'Certification en cours',
     texte: 'CompTIA Security+ (SY0-701) — session visée : octobre 2026',
   },
-  { titre: 'Statut', texte: 'Ouvert aux opportunités — 1er poste SOC Junior' },
+  { titre: 'Statut', texte: 'Ouvert aux opportunités — poste d’analyste SOC' },
 ]
 
 const COULEURS = [
@@ -83,7 +83,7 @@ export default function Profil() {
           </p>
           <p className="text-zinc-300 leading-relaxed">
             Je cherche un{' '}
-            <span className="text-accent font-semibold">premier poste de SOC Analyst Junior</span>{' '}
+            <span className="text-accent font-semibold">poste d’analyste SOC</span>{' '}
             pour continuer à apprendre au contact d'une équipe Blue Team.
           </p>
 

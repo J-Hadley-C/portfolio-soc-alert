@@ -11,7 +11,7 @@ export default function Footer() {
         className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
         <p className="text-xs text-zinc-500">
-          CHERY Jean-Hadley — SOC Analyst Junior — 2026
+          CHERY Jean-Hadley — Analyste SOC — 2026
         </p>
         <div className="flex items-center gap-6">
           <a

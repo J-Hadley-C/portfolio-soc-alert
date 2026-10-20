@@ -47,7 +47,7 @@ export default function Contact() {
         </h2>
         <div className="line-alert" />
         <p className="text-zinc-400 mt-4 max-w-md mx-auto leading-relaxed">
-          Disponible pour un poste SOC Junior, un stage ou tout échange autour de la
+          Disponible pour un poste d’analyste SOC, un stage ou tout échange autour de la
           cybersécurité.
         </p>
       </motion.div>
@@ -84,7 +84,7 @@ export default function Contact() {
           <div className="mt-4 p-4 border border-accent/20 bg-accent-dim/30">
             <p className="text-sm text-accent font-semibold">Ouvert aux opportunités</p>
             <p className="text-xs text-zinc-400 mt-1">
-              En poste actuellement, à l'écoute d'un premier rôle SOC Analyst Junior.
+              En poste actuellement, à l'écoute d'un rôle d'analyste SOC.
             </p>
           </div>
         </motion.div>
